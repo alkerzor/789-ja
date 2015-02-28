@@ -101,6 +101,7 @@
             }
         };
         
+/*
         function floor(ix, iy, itype) {
             this.x = ix;
             this.y = iy;
@@ -140,13 +141,13 @@
         
         
         world.init();
-        
+*/        
         function draw(){
 				context.clearRect(0,0,canvas.width,canvas.height);
 				//context.fillRect(player.x,player.y,player.w,player.h);
                 player.draw();
-                myFloor.draw();
-                world.draw();
+//                myFloor.draw();
+//                world.draw();
                 //context.drawImage(player.img, 0, 0);
                 //handler.draw();
                 
@@ -165,7 +166,7 @@
         }
         function touchendhandler(event)
         {
-            if(event.screenY>height/2){
+            //if(event.screenY>height/2){
                 player.runSpeed = -5;
                 end = Date();
                 player.tapLength = start.getTime()-end.getTime();
@@ -173,7 +174,7 @@
                     // do tap things: jump, attack, grapple, etc.
                     
                 }
-            }
+            //}
             
         }
         
