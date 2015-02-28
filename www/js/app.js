@@ -35,6 +35,15 @@
             maxXSpeed: 20,
             maxYSpeed: 20,
 
+            tap: function() {
+                //on an enemy
+                    //Sword dashes to the enemy
+                //on ceiling
+                    //player.grapple(x,y)
+                //on anything else (or nothing)
+                    //player.jump()
+            },
+            
             act: function() {
                 // Set the player's X velocity
 
@@ -82,22 +91,68 @@
                 if (player.y < 0) {
                         console.log("Player hit top edge of screen");
                         player.y = 0;
-                        player.velY *= -.75;
+                        player.velY *= -0.75;
                 }
+            },
+            
+            draw: function() {
+                context.drawImage(playerImg, player.x, player.y);
             }
+        };
+        
+        function floor(ix, iy, itype) {
+            this.x = ix;
+            this.y = iy;
+            this.w = 32;
+            this.h = 32;
+            this.type = itype;
+            
+            this.draw = function() {
+				context.fillRect(this.x,this.y,this.w,this.h);
+            };
+            
         }
         
+
+        var world = {
+            myFloors: [],
+            
+            draw: function() {
+                var i = 0;
+                for (i = 0; i < this.myFloors.length; i++) {
+                    this.myFloors[i].draw();
+                }
+            },
+
+            init: function() {
+                var i = 0;
+                for (i = 0; i < width/32; i++) {
+                    this.myFloors[i] = new floor(i*32, height - 64, 1);
+                }
+            }
+        
+        
+        };
+
+        
+        var myFloor = new floor(32, 32, 1);
+        
+        
+        world.init();
         
         function draw(){
 				context.clearRect(0,0,canvas.width,canvas.height);
 				//context.fillRect(player.x,player.y,player.w,player.h);
-                context.drawImage(playerImg, player.x, player.y);
+                player.draw();
+                myFloor.draw();
+                world.draw();
                 //context.drawImage(player.img, 0, 0);
+                //handler.draw();
                 
         }
         
-        addEventListener("touchstart", touchstarthandler,false);
-        addEventListener("touchend", touchendhandler,false);
+        this.addEventListener("touchstart", touchstarthandler,false);
+        this.addEventListener("touchend", touchendhandler,false);
         
 
         function touchstarthandler(event)
@@ -110,7 +165,7 @@
         }
         
         function game() {
-            console.log("Player: X: " + player.x + ", Y: " + player.y + ", velX: " + player.velX + ", velY: " + player.velY); 
+            //console.log("Player: X: " + player.x + ", Y: " + player.y + ", velX: " + player.velX + ", velY: " + player.velY); 
             player.act();
         }
 
