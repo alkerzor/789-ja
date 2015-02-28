@@ -32,27 +32,38 @@
             w: 128,
             h: 128,
             runSpeed: 0,
+            maxXSpeed: 20,
+            maxYSpeed: 20,
 
             act: function() {
-                player.x += player.velX;
-                player.velX += player.runSpeed;
+                // Set the player's X velocity
 
+                player.velX += player.runSpeed; // If touching, runSpeed is positive, otherwise smaller negative
+
+                // Limit velX 0-maxSpeed
                 if (player.velX < 0) {
                     player.velX = 0;
                 }
-                if (player.velX > 20) {
-                    player.velX = 20;
+                if (player.velX > player.maxXSpeed) {
+                    player.velX = player.maxXSpeed;
                 }
 
+                // If the player has velocity, move them appropriately
+                player.x += player.velX;
                 player.y += player.velY;
+
+
+                // Set the player's Y velocity
                 player.velY += gravity;
-                if (player.velY > 20) {
-                    player.velY = 20;
+                if (player.velY > player.maxYSpeed) {
+                    player.velY = player.maxYSpeed;
                 }
-                if (player.velY < -20) {
-                    player.velY = -20;
+                if (player.velY < -player.maxYSpeed) {
+                    player.velY = -player.maxYSpeed;
                 }
 
+                // Limit player position
+                
                 if (player.x + player.w > canvas.width) {
                         console.log("Player hit right edge of screen");
                         player.x = canvas.width - player.w;
@@ -75,6 +86,7 @@
                 }
             }
         }
+        
         
         function draw(){
 				context.clearRect(0,0,canvas.width,canvas.height);
