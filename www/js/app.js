@@ -25,6 +25,7 @@
         playerImg.src = "asset/9ja.png";
         
         var player = {
+            tapLength: 0,
             x: 0,
             y: 0,
             velX: 0,
@@ -82,10 +83,10 @@
                 if (player.y < 0) {
                         console.log("Player hit top edge of screen");
                         player.y = 0;
-                        player.velY *= -.75;
+                        player.velY *= -0.75;
                 }
             }
-        }
+        };
         
         
         function draw(){
@@ -99,14 +100,26 @@
         addEventListener("touchstart", touchstarthandler,false);
         addEventListener("touchend", touchendhandler,false);
         
-
+        var end, start;
         function touchstarthandler(event)
         {
-            player.runSpeed = 10;
+            if(event.screenX>width/2){
+                player.runSpeed = 10;
+                start = Date();
+            }
         }
         function touchendhandler(event)
         {
-            player.runSpeed = -5;
+            if(event.screenY>height/2){
+                player.runSpeed = -5;
+                end = Date();
+                player.tapLength = start.getTime()-end.getTime();
+                if(player.tapLength < 300){
+                    // do tap things: jump, attack, grapple, etc.
+                    
+                }
+            }
+            
         }
         
         function game() {
