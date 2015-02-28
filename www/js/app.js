@@ -161,21 +161,19 @@
         {
             if(event.screenX>width/2){
                 player.runSpeed = 10;
-                start = Date();
+                start = new Date();
             }
         }
         function touchendhandler(event)
         {
-            //if(event.screenY>height/2){
-                player.runSpeed = -5;
-                end = Date();
-                player.tapLength = start.getTime()-end.getTime();
-                if(player.tapLength < 300){
-                    // do tap things: jump, attack, grapple, etc.
-                    
-                }
-            //}
-            
+            player.runSpeed = -5;
+            end = new Date();
+            player.tapLength = end.getTime()-start.getTime();
+            if(player.tapLength < 300){
+                // do tap things: jump, attack, grapple, etc.
+                //console.log("TAP! ");
+
+            }            
         }
         
         function game() {
