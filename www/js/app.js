@@ -187,7 +187,6 @@
                 // Set the player's X velocity
 
                 player.velX += player.runSpeed; // If touching, runSpeed is positive, otherwise smaller negative
-
                 // Limit velX 0-maxSpeed
                 if (player.velX < 0) {
                     player.velX = 0;
@@ -202,7 +201,7 @@
 
 
                 // Set the player's Y velocity
-                player.velY += gravity;
+                player.velY += 1;
                 if (player.velY > player.maxYSpeed) {
                     player.velY = player.maxYSpeed;
                 }
@@ -226,12 +225,12 @@
                 if (player.y + player.h > canvas.height) {
                         console.log("Player hit bottom edge of screen");
                         player.y = canvas.height - player.h;
-                        player.velY = 0;
+                    //    player.velY = 0;
                 }
                 if (player.y < 0) {
                         console.log("Player hit top edge of screen");
                         player.y = 0;
-                        player.velY *= -0.75;
+                    //    player.velY *= -0.75;
                 }
             },
             
@@ -319,9 +318,14 @@
             player.runSpeed = -5;
             end = new Date();
             player.tapLength = end.getTime()-start.getTime();
+
             if(player.tapLength < 300){
                 // do tap things: jump, attack, grapple, etc.
                 //console.log("TAP! ");
+<<<<<<< HEAD
+=======
+                player.velY = -20;
+>>>>>>> origin/master
             }            
         }
         
